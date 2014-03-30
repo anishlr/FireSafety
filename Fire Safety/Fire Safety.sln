@@ -7,6 +7,10 @@ Project("{0008C4F3-3E63-D589-B607-AAEA694C5E58}") = "Fire Safety", "Assembly-CSh
 EndProject
 Project("{0008C4F3-3E63-D589-B607-AAEA694C5E58}") = "Fire Safety", "Assembly-UnityScript-firstpass.unityproj", "{8C26097D-9F86-E3C9-5605-7C08A857B25A}"
 EndProject
+Project("{0008C4F3-3E63-D589-B607-AAEA694C5E58}") = "Fire Safety", "Assembly-UnityScript.unityproj", "{E33E919F-4971-1C3A-7BBE-9EDEED42551B}"
+EndProject
+Project("{0008C4F3-3E63-D589-B607-AAEA694C5E58}") = "Fire Safety", "Assembly-UnityScript-Editor.unityproj", "{15A682C9-D995-1C62-C328-FC6E32CF3263}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,11 +29,19 @@ Global
 		{8C26097D-9F86-E3C9-5605-7C08A857B25A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C26097D-9F86-E3C9-5605-7C08A857B25A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C26097D-9F86-E3C9-5605-7C08A857B25A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E33E919F-4971-1C3A-7BBE-9EDEED42551B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E33E919F-4971-1C3A-7BBE-9EDEED42551B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E33E919F-4971-1C3A-7BBE-9EDEED42551B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E33E919F-4971-1C3A-7BBE-9EDEED42551B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15A682C9-D995-1C62-C328-FC6E32CF3263}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15A682C9-D995-1C62-C328-FC6E32CF3263}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15A682C9-D995-1C62-C328-FC6E32CF3263}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15A682C9-D995-1C62-C328-FC6E32CF3263}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-												GlobalSection(MonoDevelopProperties) = preSolution
+																GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1
