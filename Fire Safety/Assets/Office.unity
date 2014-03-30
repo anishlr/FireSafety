@@ -60152,8 +60152,8 @@ Transform:
   - {fileID: 599784734}
   - {fileID: 729183229}
   - {fileID: 1122618674}
-  - {fileID: 1588116420}
   - {fileID: 1349868119}
+  - {fileID: 1588116420}
   m_Father: {fileID: 2142542293}
 --- !u!1001 &2034380422
 Prefab:
