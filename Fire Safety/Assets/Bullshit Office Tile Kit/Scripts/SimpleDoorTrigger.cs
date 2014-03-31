@@ -5,7 +5,7 @@ public class SimpleDoorTrigger : MonoBehaviour {
 	public Transform Door;
 	public float OpenAngleAmount = 88.0f;
 	public float SmoothRotation;	
-	public string interactText = "Press F To Interact";
+	private string openDoorText = "Press F To Open The Door : Press E To Check The Door Handle";
 	public GUIStyle InteractTextStyle;
 		
 	private bool init = false;
@@ -13,7 +13,7 @@ public class SimpleDoorTrigger : MonoBehaviour {
 	private bool doorOpen = false;
 	private Vector3 startAngle;
 	private Vector3 openAngle;	
-	private Rect interactTextRect;
+	private Rect openDoorTextRect;
 		
 	void Start () {
 		//Check if Door Game Object is properly assigned
@@ -24,10 +24,10 @@ public class SimpleDoorTrigger : MonoBehaviour {
 		//Init Start and Open door angles
 		startAngle = Door.eulerAngles;
 		openAngle = new Vector3(startAngle.x, startAngle.y + OpenAngleAmount, startAngle.z);
-		
+
 		//Init Interact text Rect
-		Vector2 textSize = InteractTextStyle.CalcSize(new GUIContent(interactText));
-		interactTextRect = new Rect(Screen.width / 2 - textSize.x / 2, Screen.height - (textSize.y + 5), textSize.x, textSize.y);
+		Vector2 textSize = InteractTextStyle.CalcSize(new GUIContent(openDoorText));
+		openDoorTextRect = new Rect(Screen.width / 2 - textSize.x / 2, Screen.height - (textSize.y + 5), textSize.x, textSize.y);
 		
 		init = true;
 	}
@@ -54,7 +54,7 @@ public class SimpleDoorTrigger : MonoBehaviour {
 		if(!init || !hasEntered)
 			return;
 		
-		GUI.Label(interactTextRect, interactText, InteractTextStyle);
+		GUI.Label(openDoorTextRect, openDoorText, InteractTextStyle);
 	}
 	
 	void HandleDoorRotation(){
@@ -65,8 +65,15 @@ public class SimpleDoorTrigger : MonoBehaviour {
 	}
 	
 	void HandleUserInput(){
-		if(Input.GetKeyDown(KeyCode.F) && hasEntered){
-			doorOpen = !doorOpen;
-		}			
+		if (Input.GetKeyDown (KeyCode.F) && hasEntered) {
+						doorOpen = !doorOpen;
+		} else if (!doorOpen&&Input.GetKeyDown (KeyCode.E) && hasEntered) {
+			Debug.Log ("Door Checked");
+				}
+		if (doorOpen) {
+			openDoorText = "Press F To Close The Door";
+				} else {
+			openDoorText = "Press F To Open The Door : Press E To Check The Door Handle";
+				}
 	}
 }
