@@ -2,7 +2,7 @@
 
 public var extinguisher : Transform;
 public var particle : GameObject;
-private var interactText : String = "Press F To Pick Up The Extinguisher";
+private var interactText : String = "Press F to pick up the extinguisher";
 public var InteractTextStyle : GUIStyle;
 
 public var extinguisherBoxOpen : Texture;
@@ -35,10 +35,9 @@ function Update () {
 	HandleUserInput();
 	
 	if(pickedUpExtinguisher) {
-	interactText= "Press Left Mouse Button to Dispense the Extinguisher";
-	var ExtinguisherBox : GameObject = GameObject.Find("ExtinguisherBox");
-	ExtinguisherBox.renderer.material.SetTexture("_MainTex", extinguisherBoxOpen);
-	
+		interactText= "Press left mouse button to dispense the extinguisher";
+		var ExtinguisherBox : GameObject = GameObject.Find("ExtinguisherBox");
+		ExtinguisherBox.renderer.material.SetTexture("_MainTex", extinguisherBoxOpen);
 		UpdateExtinguisherPosition();
 	}
 }
@@ -62,22 +61,20 @@ function OnGUI() {
 }
 	
 function HandleUserInput() {
-		playerObject = GameObject.FindWithTag("Player");
-		playerPos = playerObject.transform.position;
-		playerRot = playerObject.transform.rotation;
+	playerObject = GameObject.FindWithTag("Player");
+	playerPos = playerObject.transform.position;
+	playerRot = playerObject.transform.rotation;
 		
 	if(!pickedUpExtinguisher && hasEntered && Input.GetButtonDown("Interact")){
 		// Picked up the fire extinguisher
 		pickedUpExtinguisher = true;
 		extinguisherInstance = Instantiate(extinguisher, playerPos, playerRot);
 	}
-	else if (pickedUpExtinguisher && Input.GetButtonDown("Fire1"))  {
-	particleInstance = Instantiate(particle, playerPos, playerRot);
+	else if (pickedUpExtinguisher && Input.GetButtonDown("Fire1")) {
+		particleInstance = Instantiate(particle, playerPos, playerRot);
 	}
-	else if(pickedUpExtinguisher && Input.GetButtonUp("Fire1"))	
-	{
-	Destroy(particleInstance, 85*Time.deltaTime);
-	
+	else if(pickedUpExtinguisher && Input.GetButtonUp("Fire1"))	{
+		Destroy(particleInstance, 85*Time.deltaTime);
 	}		
 }
 

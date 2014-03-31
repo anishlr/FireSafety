@@ -49,7 +49,10 @@
      <Compile Include="Assets\FX Mega Pack\Scripts\ParticleSpawner.js" />
      <Compile Include="Assets\FX Mega Pack\Scripts\RandomRotate.js" />
      <Compile Include="Assets\FX Mega Pack\Scripts\RotateY.js" />
+     <Compile Include="Assets\Nancy Folder\MainMenuBtns.js" />
+     <Compile Include="Assets\Nancy Folder\Opening_lightflicker.js" />
      <Compile Include="Assets\Scripts\PickupExtinguisher.js" />
+     <Compile Include="Assets\Scripts\StartFire.js" />
      <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />
      <None Include="Assets\FX Mega Pack\FX Mega Pack - Readme.txt" />
   </ItemGroup>
