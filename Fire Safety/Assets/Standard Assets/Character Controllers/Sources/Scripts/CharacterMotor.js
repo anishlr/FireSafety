@@ -20,7 +20,11 @@ var inputMoveDirection : Vector3 = Vector3.zero;
 var inputJump : boolean = false;
 
 class CharacterMotorMovement {
+	// Is the player running?
+	var isRunning : boolean = false;
+	
 	// The maximum horizontal speed when moving
+	var runFactor : float = 1.5;
 	var maxForwardSpeed : float = 10.0;
 	var maxSidewaysSpeed : float = 10.0;
 	var maxBackwardsSpeed : float = 10.0;
@@ -183,6 +187,14 @@ function Awake () {
 private function UpdateFunction () {
 	// We copy the actual velocity into a temporary variable that we can manipulate.
 	var velocity : Vector3 = movement.velocity;
+	
+	// Check if the player is running
+	if(Input.GetButtonDown("Run")) {
+		movement.isRunning = true;
+	}
+	else if(Input.GetButtonUp("Run")) {
+		movement.isRunning = false;
+	}
 	
 	// Update velocity based on input
 	velocity = ApplyInputVelocityChange(velocity);
@@ -568,9 +580,15 @@ function MaxSpeedInDirection (desiredMovementDirection : Vector3) : float {
 	if (desiredMovementDirection == Vector3.zero)
 		return 0;
 	else {
-		var zAxisEllipseMultiplier : float = (desiredMovementDirection.z > 0 ? movement.maxForwardSpeed : movement.maxBackwardsSpeed) / movement.maxSidewaysSpeed;
+		var zAxisEllipseMultiplier : float = (desiredMovementDirection.z > 0 ? movement.maxForwardSpeed : movement.maxBackwardsSpeed) / movement.maxSidewaysSpeed;		
 		var temp : Vector3 = new Vector3(desiredMovementDirection.x, 0, desiredMovementDirection.z / zAxisEllipseMultiplier).normalized;
 		var length : float = new Vector3(temp.x, 0, temp.z * zAxisEllipseMultiplier).magnitude * movement.maxSidewaysSpeed;
+	
+		// Check if the player is running
+		if(movement.isRunning) {
+			length *= movement.runFactor;
+		}
+		
 		return length;
 	}
 }
