@@ -63,7 +63,12 @@ function HandleUserInput(){
 	}
 	
 	if(checkedDoor) {
-		StateManager.UpdateContextualState(ContextualState.CheckedDoorKnob);
+		if(doorOpen) {
+			StateManager.UpdateContextualState(ContextualState.CheckedDoorKnobAndDoorOpen);
+		}
+		else {
+			StateManager.UpdateContextualState(ContextualState.CheckedDoorKnobAndDoorClosed);
+		}
 	}
 	else if (doorOpen) {
 		StateManager.UpdateContextualState(ContextualState.CanCloseDoor);

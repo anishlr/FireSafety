@@ -20,9 +20,9 @@ function Update () {
 	}
 	
 	// Start the fires only when the player enters this trigger zone
-	if(hasEntered && StateManager.CurrentGameState() == GameState.Initial) {
+	if(hasEntered && StateManager.CurrentGameState() == GameState.EnterOffice) {
 		fireObject.SetActive(true);
-		StateManager.UpdateGameState(GameState.EnteredOffice);
+		StateManager.UpdateGameState(GameState.ExitBuilding);
 	}
 }
 
