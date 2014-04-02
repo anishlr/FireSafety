@@ -4,14 +4,11 @@ public var particle : GameObject;
 public var extinguisher : Transform;
 public var extinguisherBoxOpen : Texture;
 
-private var hasEntered : boolean = false;
-private var particleSystemInstance: GameObject;
-private var extinguisherInstance: Transform;
-private var pickedUpExtinguisher : boolean = false;
-
-private var playerPos : Vector3;
-private var playerRot : Quaternion;
 private var playerObject : GameObject;
+private var hasEntered : boolean = false;
+private var extinguisherInstance: Transform;
+private var particleSystemInstance: GameObject;
+private var pickedUpExtinguisher : boolean = false;
 
 function Start () {
 }
@@ -42,17 +39,15 @@ function OnTriggerExit(col: Collider){
 }
 	
 function HandleUserInput() {
-	playerObject = GameObject.FindWithTag("Player");
-	playerPos = playerObject.transform.position;
-	playerRot = playerObject.transform.rotation;
+	playerObject = GameObject.FindWithTag("MainCamera");
 		
 	if(!pickedUpExtinguisher && hasEntered && Input.GetButtonDown("Interact")){
 		// Picked up the fire extinguisher
 		pickedUpExtinguisher = true;
-		extinguisherInstance = Instantiate(extinguisher, playerPos, playerRot);
+		extinguisherInstance = Instantiate(extinguisher, playerObject.transform.position, playerObject.transform.rotation);
 	}
 	else if (pickedUpExtinguisher && Input.GetButtonDown("Fire1")) {
-		particleSystemInstance = Instantiate(particle, playerPos, playerRot);
+		particleSystemInstance = Instantiate(particle, playerObject.transform.position, playerObject.transform.rotation);
 		particleSystemInstance.gameObject.tag = "ExtinguisherContents";
 	}
 	else if(pickedUpExtinguisher && Input.GetButtonUp("Fire1"))	{
@@ -63,12 +58,12 @@ function HandleUserInput() {
 function UpdateExtinguisherPosition() {
 	extinguisherInstance.position = playerObject.transform.position;
 	extinguisherInstance.rotation = playerObject.transform.rotation;
-	extinguisherInstance.Translate(0.4, -0.2, 0.9);
+	extinguisherInstance.Translate(0.4, -0.8, 0.9);
 	extinguisherInstance.Rotate(-90, 90, 0);
 
 	if(particleSystemInstance != null) {	
 		particleSystemInstance.transform.position = playerObject.transform.position;
 		particleSystemInstance.transform.rotation = playerObject.transform.rotation;
-		particleSystemInstance.transform.Translate(0.4, -0.2, 0.9);
+		particleSystemInstance.transform.Translate(0.4, -0.3, 1.15);
 	}
 }
