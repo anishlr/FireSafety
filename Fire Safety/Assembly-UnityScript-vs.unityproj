@@ -52,9 +52,8 @@
      <Compile Include="Assets\FX Mega Pack\Scripts\RotateY.js" />
      <Compile Include="Assets\Nancy&apos;s Folder\MainMenuBtns.js" />
      <Compile Include="Assets\Nancy&apos;s Folder\Opening_lightflicker.js" />
-     <Compile Include="Assets\Scripts\ExtinguisherPickUp.js" />
-     <Compile Include="Assets\Scripts\ExtinguisherUsage.js" />
-     <Compile Include="Assets\Scripts\FireExtinguishDetect.js" />
+     <Compile Include="Assets\Scripts\Extinguisher.js" />
+     <Compile Include="Assets\Scripts\ExtinguisherPrompt.js" />
      <Compile Include="Assets\Scripts\FireStarter.js" />
      <Compile Include="Assets\Scripts\Objective.js" />
      <Compile Include="Assets\Scripts\StateManager.js" />

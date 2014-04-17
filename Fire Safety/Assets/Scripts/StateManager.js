@@ -85,7 +85,7 @@ static function UpdateContextualState (newState : ContextualState) {
 			break;
 			
 		case ContextualState.CanOpenDoor:
-			objective.UpdateContextualObjective("Press F to open the door or press E to check the door knob");
+			objective.UpdateContextualObjective("Press F to open the door or press E to check the door knob's temperature");
 			break;
 			
 		case ContextualState.CheckedDoorKnobAndDoorOpen:
