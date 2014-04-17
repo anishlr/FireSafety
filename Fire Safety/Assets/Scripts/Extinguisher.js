@@ -7,15 +7,14 @@ public var extinguisherBoxOpen : Texture;
 private var playerObject : GameObject;
 private var hasEntered : boolean = false;
 private var extinguisherInstance: Transform;
-private var particleSystemInstance: GameObject;
-private var pickedUpExtinguisher : boolean = false;
+
+static var particleSystemInstance: GameObject;
+static var pickedUpExtinguisher : boolean = false;
 
 function Update () {
 	HandleUserInput();
 	
 	if(pickedUpExtinguisher) {
-		StateManager.UpdateContextualState(ContextualState.PickedUpExtinguisher);
-		
 		// Change the extinguisher box's texture to reflect the missing extinguisher (since the player has picked it up)
 		var ExtinguisherBox : GameObject = GameObject.Find("ExtinguisherBox");
 		ExtinguisherBox.renderer.material.SetTexture("_MainTex", extinguisherBoxOpen);
@@ -58,7 +57,7 @@ function UpdateExtinguisherPosition() {
 	extinguisherInstance.position = playerObject.transform.position;
 	extinguisherInstance.rotation = playerObject.transform.rotation;
 	extinguisherInstance.Translate(0.4, -0.8, 0.9);
-	extinguisherInstance.Rotate(-90, 90, 0);
+	extinguisherInstance.Rotate(-90, -90, 0);
 
 	if(particleSystemInstance != null) {	
 		particleSystemInstance.transform.position = playerObject.transform.position;

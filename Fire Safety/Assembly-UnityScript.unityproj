@@ -53,7 +53,7 @@
      <Compile Include="Assets\Nancy&apos;s Folder\MainMenuBtns.js" />
      <Compile Include="Assets\Nancy&apos;s Folder\Opening_lightflicker.js" />
      <Compile Include="Assets\Scripts\Extinguisher.js" />
-     <Compile Include="Assets\Scripts\ExtinguisherPrompt.js" />
+     <Compile Include="Assets\Scripts\ExtinguisherDetect.js" />
      <Compile Include="Assets\Scripts\FireStarter.js" />
      <Compile Include="Assets\Scripts\Objective.js" />
      <Compile Include="Assets\Scripts\StateManager.js" />

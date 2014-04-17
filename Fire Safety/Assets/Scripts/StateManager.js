@@ -11,8 +11,9 @@ enum GameState {
 enum ContextualState {
 	None,
 	CanPickUpExtinguisher,
-	PickedUpExtinguisher,
-	MustUseExtinguisher,
+	CanUseExtinguisher,
+	PromptCorrectExtinguisherUsage,
+	MustFindExtinguisher,
 	CanOpenDoor,
 	CanCloseDoor,
 	CheckedDoorKnobAndDoorOpen,
@@ -73,31 +74,35 @@ static function UpdateContextualState (newState : ContextualState) {
 			break;
 			
 		case ContextualState.CanPickUpExtinguisher:
-			objective.UpdateContextualObjective("Press F to pick up the extinguisher");
+			objective.UpdateContextualObjective("Press 'F' to pick up the extinguisher");
 			break;
 			
-		case ContextualState.PickedUpExtinguisher:
-			objective.UpdateContextualObjective("Press left mouse button to dispense the extinguisher");
+		case ContextualState.CanUseExtinguisher:
+			objective.UpdateContextualObjective("Press the left mouse button to dispense the extinguisher");
 			break;
-			
-		case ContextualState.MustUseExtinguisher:
-			objective.UpdateContextualObjective("Oh no! Looks like we're stuck. There must be a fire extinguisher nearby...");
+
+		case ContextualState.PromptCorrectExtinguisherUsage:
+			objective.UpdateContextualObjective("Remember to sweep the extinguisher from side to side to extinguish the fire.");
+			break;
+
+		case ContextualState.MustFindExtinguisher:
+			objective.UpdateContextualObjective("Oh no! Looks like we can't go any further. There must be a fire extinguisher nearby...");
 			break;
 			
 		case ContextualState.CanOpenDoor:
-			objective.UpdateContextualObjective("Press F to open the door or press E to check the door knob's temperature");
+			objective.UpdateContextualObjective("Press 'F' to open the door or press E to check the door knob's temperature");
 			break;
 			
 		case ContextualState.CheckedDoorKnobAndDoorOpen:
-			objective.UpdateContextualObjective("Door checked. Press F to close the door. TODO: Let the user know if the door handle is hot/cold");
+			objective.UpdateContextualObjective("Door checked. Press 'F' to close the door. TODO: Let the user know if the door handle is hot/cold");
 			break;
 			
 		case ContextualState.CheckedDoorKnobAndDoorClosed:
-			objective.UpdateContextualObjective("Door checked. Press F to open the door. TODO: Let the user know if the door handle is hot/cold");
+			objective.UpdateContextualObjective("Door checked. Press 'F' to open the door. TODO: Let the user know if the door handle is hot/cold");
 			break;
 			
 		case ContextualState.CanCloseDoor:
-			objective.UpdateContextualObjective("Press F to close the door");
+			objective.UpdateContextualObjective("Press 'F' to close the door");
 			break;
 	}
 }
