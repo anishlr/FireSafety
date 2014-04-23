@@ -25,13 +25,13 @@ function Update () {
 function OnTriggerEnter(col : Collider) {
 	if(col.gameObject.tag == "Player") {
 		hasEntered = true;
-		StateManager.UpdateContextualState(ContextualState.CanPickUpExtinguisher);
+		StateManager.UpdateContextualState(ContextualState.CanPickUpExtinguisher, false);
 	}
 }
 
 function OnTriggerExit(col: Collider){
 	hasEntered = false;
-	StateManager.UpdateContextualState(ContextualState.None);
+	StateManager.UpdateContextualState(ContextualState.None, false);
 }
 	
 function HandleUserInput() {

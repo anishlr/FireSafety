@@ -1,6 +1,7 @@
 ﻿public var Door : Transform;
-public var OpenAngleAmount : float = 88.0f;
 public var SmoothRotation : float;
+public var OpenAngleAmount : float = 88.0f;
+public var minimumHotDistance : float = 9.5f;
 	
 private var init : boolean = false;
 private var hasEntered : boolean = false;
@@ -8,7 +9,9 @@ private var doorOpen : boolean = false;
 private var checkedDoor : boolean = false;
 private var startAngle : Vector3;
 private var openAngle : Vector3;
-	
+
+var isHot : boolean = false;
+
 function Start() {
 	// Check if Door Game Object is properly assigned
 	if(Door == null){
@@ -37,12 +40,13 @@ function OnTriggerEnter(col : Collider){
 	// Only react to the player entering the trigger zone
 	if(col.gameObject.tag == "Player"){
 		hasEntered = true;
+		checkedDoor = false;
 	}
 }
 
 function OnTriggerExit(col : Collider){
 	hasEntered = false;
-	StateManager.UpdateContextualState(ContextualState.None);
+	StateManager.UpdateContextualState(ContextualState.None, false);
 }
 
 function HandleDoorRotation(){
@@ -60,20 +64,36 @@ function HandleUserInput(){
 	}
 	else if (Input.GetButtonDown("AltInteract")) {
 		checkedDoor = true;
+
+		var fireInstances = GameObject.FindGameObjectsWithTag("Fire");
+		for (var fireInstance in fireInstances) {
+			var distance = Vector3.Distance(fireInstance.transform.position, Door.position); 
+			if (distance < minimumHotDistance){
+				isHot = true;
+				break;
+			}
+			else {
+				isHot = false;
+			}
+		}		
 	}
-	
+
 	if(checkedDoor) {
-		if(doorOpen) {
-			StateManager.UpdateContextualState(ContextualState.CheckedDoorKnobAndDoorOpen);
+		if(!doorOpen) {
+			if(isHot) {
+				StateManager.UpdateContextualState(ContextualState.CheckedDoorKnobAndDoorIsHot, false);
+			}
+			else {
+				StateManager.UpdateContextualState(ContextualState.CheckedDoorKnobAndDoorIsCold, false);
+			}
 		}
-		else {
-			StateManager.UpdateContextualState(ContextualState.CheckedDoorKnobAndDoorClosed);
-		}
+		
 	}
 	else if (doorOpen) {
-		StateManager.UpdateContextualState(ContextualState.CanCloseDoor);
+		StateManager.UpdateContextualState(ContextualState.CanCloseDoor, false);
 	}
 	else {
-		StateManager.UpdateContextualState(ContextualState.CanOpenDoor);
+		StateManager.UpdateContextualState(ContextualState.CanOpenDoor, false);
 	}
+	
 }

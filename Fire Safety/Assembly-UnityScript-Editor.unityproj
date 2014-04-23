@@ -48,8 +48,15 @@
   <ItemGroup>
      <Compile Include="Assets\FX Mega Pack\Scripts\Editor\MaterialOverride.js" />
      <Compile Include="Assets\FX Mega Pack\Scripts\Editor\ParticleScaler.js" />
+     <None Include="Assets\Nancy&apos;s Folder\NewerItems\Toilet Paper\prop_toiletpaper\prop_toiletpaper\readme.txt" />
+     <None Include="Assets\Nancy&apos;s Folder\NewerItems\Toilet &amp; Toilet Plunger (LD)\SA_LD_Toilet_Plunger_3DS\Copyright Notice.txt" />
+     <None Include="Assets\Nancy&apos;s Folder\NewerItems\Office Printer\Printer\Liscense.txt" />
      <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />
+     <None Include="Assets\Nancy&apos;s Folder\NewerItems\Toilet &amp; Toilet Plunger (LD)\SA_LD_Toilet_OBJ\Copyright Notice.txt" />
      <None Include="Assets\FX Mega Pack\FX Mega Pack - Readme.txt" />
+     <None Include="Assets\Nancy&apos;s Folder\NewerItems\Toilet &amp; Toilet Plunger (LD)\SA_LD_Toilet_3DS\Copyright Notice.txt" />
+     <None Include="Assets\Nancy&apos;s Folder\NewerItems\Toilet Paper\prop_toiletpaper\prop_toiletpaper\license.txt" />
+     <None Include="Assets\Nancy&apos;s Folder\NewerItems\Presentation screen\prs009_OBJ\readme.txt" />
  <Reference Include="UnityEditor.Graphs">
  <HintPath>C:\Program Files (x86)\Unity\Editor\Data\Managed\UnityEditor.Graphs.dll</HintPath>
  </Reference>
