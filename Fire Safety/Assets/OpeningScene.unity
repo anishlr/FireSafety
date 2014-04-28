@@ -5487,8 +5487,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Door: {fileID: 1443230259}
-  OpenAngleAmount: 88
   SmoothRotation: 0
+  OpenAngleAmount: 88
+  minimumHotDistance: 9.5
 --- !u!1 &1824723608
 GameObject:
   m_ObjectHideFlags: 0
@@ -5515,7 +5516,7 @@ AudioSource:
   serializedVersion: 3
   m_audioClip: {fileID: 8300000, guid: 2914a11d153075047b331e1dd7817ccd, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: .173999995
+  m_Volume: .0939999968
   m_Pitch: 1
   Loop: 1
   Mute: 0

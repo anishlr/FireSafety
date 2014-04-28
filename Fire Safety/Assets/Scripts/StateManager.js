@@ -4,7 +4,10 @@
 enum GameState {
 	None,
 	EnterOffice,
-	ExitBuilding
+	GoToDesk,
+	ExitBuilding,
+	Paused,
+	End
 };
 
 // All the possible contextual states (keeps track of contextual objectives)
@@ -18,15 +21,17 @@ enum ContextualState {
 	CanCloseDoor,
 	CheckedDoorKnobAndDoorIsHot,
 	CheckedDoorKnobAndDoorIsCold,
+	MustUseRag,
 	UsingDryRag,
-	InSmoke,
+	MustCrouch,
 	CanUseSink,
 	RagIsWet
 };
 
-private static var currentGameState : GameState;
-private static var currentContextualState : ContextualState;
-private static var objective : Objective;
+private var objective : Objective;
+private var scoreManager : ScoreManager;
+private var currentGameState : GameState;
+private var currentContextualState : ContextualState;
 
 function Start() {
 	// Initial objective
@@ -38,43 +43,67 @@ function Start() {
 }
 
 // Main objective related functions
-static function CurrentGameState() : GameState {
+function CurrentGameState() : GameState {
 	return currentGameState;
 }
 
-static function UpdateGameState (newState : GameState) {
+function UpdateGameState (newState : GameState) {
 	// Minor optimization
 	if(currentGameState == newState) {
 		return;
 	}
-	
+
+	if(objective == null) {
+		objective = GetComponent(Objective);
+	}
+
 	currentGameState = newState;
 	switch(currentGameState) {
 		case GameState.EnterOffice:
-			objective.UpdateMainObjective("Enter your office which is located on the second floor");
+			objective.UpdateMainObjective("Looks like I'm late for work. I need to get to my office on the second floor.");
+			break;
+		
+		case GameState.GoToDesk:
+			objective.UpdateMainObjective("What a beautiful day! Time to get started with work. (Go to your desk)");
 			break;
 			
 		case GameState.ExitBuilding:
-			objective.UpdateMainObjective("Exit the building!");
+			objective.UpdateMainObjective("Oh no! A fire has broken out! We must exit the building!");
+			break;
+			
+		case GameState.Paused:
+			objective.UpdateMainObjective("Game paused");
+			break;
+			
+		case GameState.End:
+			objective.UpdateMainObjective("Phew, looks like we escaped the fire!");
+			objective.UpdateContextualObjective("", false);
 			break;
 	}
 }
 
 // Contextual objective related functions
-static function CurrentContextualState() : ContextualState {
+function CurrentContextualState() : ContextualState {
 	return currentContextualState;
 }
 
-static function UpdateContextualState (newState : ContextualState, disappearAfterTime : boolean) {
+function UpdateContextualState (newState : ContextualState, disappearAfterTime : boolean) {
 	// Minor optimization
 	if(currentContextualState == newState) {
 		return;
 	}
+
+	if(objective == null) {
+		objective = GetComponent(Objective);
+	}
 	
+	if(scoreManager == null) {
+		scoreManager = GameObject.Find("Score Manager").GetComponent(ScoreManager);
+	}
+
 	currentContextualState = newState;
 	switch(currentContextualState) {
 		case ContextualState.None:
-			/*isinSmoke = false;*/
 			objective.UpdateContextualObjective("", disappearAfterTime);
 			break;
 			
@@ -104,12 +133,20 @@ static function UpdateContextualState (newState : ContextualState, disappearAfte
 			break;
 			
 		case ContextualState.CheckedDoorKnobAndDoorIsHot:
+		
 			objective.UpdateContextualObjective("The door knob is hot! Do not open the door.", disappearAfterTime);
+			scoreManager.UpdateScore(5, "checked a door handle");
+			
 			break;
+		
 			
 		case ContextualState.CheckedDoorKnobAndDoorIsCold:
+		
 			objective.UpdateContextualObjective("The door knob is cold. Press 'F' to open the door.", disappearAfterTime);
+			scoreManager.UpdateScore(5, "checked a door handle");
+			
 			break;
+		
 			
 		case ContextualState.CanCloseDoor:
 			objective.UpdateContextualObjective("Press 'F' to close the door", disappearAfterTime);
@@ -119,8 +156,12 @@ static function UpdateContextualState (newState : ContextualState, disappearAfte
 			objective.UpdateContextualObjective("Press 'F' to wet your rag.", disappearAfterTime);
 			break;
 			
-		case ContextualState.InSmoke: 
-			objective.UpdateContextualObjective("We are in smoke. Prepare to die.", disappearAfterTime);
+		case ContextualState.MustCrouch: 
+			objective.UpdateContextualObjective("This smoke is too dense. Press 'C' to crouch.", disappearAfterTime);
+		break;
+			
+		case ContextualState.MustUseRag: 
+			objective.UpdateContextualObjective("There is dense smoke around. It is hazardous to breathe the air. Press 'Z' to cover your mouth with the rag.", disappearAfterTime);
 		break;
 		
 		case ContextualState.UsingDryRag:

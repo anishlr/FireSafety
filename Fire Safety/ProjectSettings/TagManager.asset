@@ -7,6 +7,14 @@ TagManager:
   - Fires
   - ExtinguisherContents
   - Fire
+  - MeetingRoomDoor
+  - BreakRoomLeftDoor
+  - RestroomRightDoor
+  - RestroomLeftDoor
+  - BreakRoomRightDoor
+  - FireExitLeftDoor
+  - FireExitRightDoor
+  - 
   - 
   - 
   - 

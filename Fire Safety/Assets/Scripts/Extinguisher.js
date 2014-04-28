@@ -4,8 +4,10 @@ public var particle : GameObject;
 public var extinguisher : Transform;
 public var extinguisherBoxOpen : Texture;
 
-private var playerObject : GameObject;
 private var hasEntered : boolean = false;
+private var playerObject : GameObject;
+private var stateManager : StateManager;
+private var scoreManager : ScoreManager;
 private var extinguisherInstance: Transform;
 
 static var particleSystemInstance: GameObject;
@@ -23,15 +25,24 @@ function Update () {
 }
 
 function OnTriggerEnter(col : Collider) {
-	if(col.gameObject.tag == "Player") {
+	if(col.gameObject.tag == "Player" && !pickedUpExtinguisher) {
 		hasEntered = true;
-		StateManager.UpdateContextualState(ContextualState.CanPickUpExtinguisher, false);
+
+		if(stateManager == null) {
+			stateManager = GameObject.Find("State Manager").GetComponent(StateManager);
+		}
+
+		if(scoreManager == null) {
+			scoreManager = GameObject.Find("Score Manager").GetComponent(ScoreManager);
+		}
+
+		stateManager.UpdateContextualState(ContextualState.CanPickUpExtinguisher, false);
 	}
 }
 
 function OnTriggerExit(col: Collider){
 	hasEntered = false;
-	StateManager.UpdateContextualState(ContextualState.None, false);
+	stateManager.UpdateContextualState(ContextualState.None, false);
 }
 	
 function HandleUserInput() {
@@ -41,6 +52,8 @@ function HandleUserInput() {
 		// Picked up the fire extinguisher
 		pickedUpExtinguisher = true;
 		extinguisherInstance = Instantiate(extinguisher, playerObject.transform.position, playerObject.transform.rotation);
+		scoreManager.UpdateScore(10, "Picked up extinguisher");
+		stateManager.UpdateContextualState(ContextualState.None, false);
 	}
 	else if(pickedUpExtinguisher && particleSystemInstance == null && Input.GetButtonDown("Fire1")) {
 		particleSystemInstance = Instantiate(particle, playerObject.transform.position, playerObject.transform.rotation);

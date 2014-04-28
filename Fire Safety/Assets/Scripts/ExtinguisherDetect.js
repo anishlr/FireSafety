@@ -8,9 +8,18 @@ public var extinguishedFireDelay : float = 6.0f;
 public var timeUntilCorrectPrompt : float = 2.0f;
 public var particleCountScaleFactor : float = 1.008f;
 public var minimumParticleEmissionRate : float = 10.0f;
+public var incorrectFireExtinguisherUsageCount : int = 0;
+public var incorrectFireExtinguisherUsageThreshold : int = 5;
 
+private var maxEmissionRate : float;
+private var stateManager : StateManager;
+private var scoreManager : ScoreManager;
 private var lastMousePos : Vector3 = Vector3.zero;
 private var incorrectExtinguishTimer : float = 0.0f;
+
+function Start() {
+	maxEmissionRate = gameObject.particleSystem.emissionRate;
+}
 
 function Update() {
 	if(Extinguisher.particleSystemInstance != null) {
@@ -36,29 +45,47 @@ function Update() {
 		if(gameObject.particleSystem.emissionRate <= minimumParticleEmissionRate) {
 			particleSystem.Stop();
 			gameObject.SetActive(false);
-			StateManager.UpdateContextualState(ContextualState.None, false);
+			stateManager.UpdateContextualState(ContextualState.None, false);
+			scoreManager.UpdateScore(10, "Extinguished a fire");
 		}
 		
 		// When the incorrect extinguisher usage timer reaches the max, then we must prompt the user on how to use it correctly
 		if(incorrectExtinguishTimer > timeUntilCorrectPrompt) {
-			StateManager.UpdateContextualState(ContextualState.PromptCorrectExtinguisherUsage, false);
+			stateManager.UpdateContextualState(ContextualState.PromptCorrectExtinguisherUsage, false);
 			incorrectExtinguishTimer = 0.0f;
+			incorrectFireExtinguisherUsageCount++;
+
+			if(incorrectFireExtinguisherUsageCount > incorrectFireExtinguisherUsageThreshold) {
+				scoreManager.UpdateScore(-5, "Incorrectly used the fire extinguisher");
+			}
 		}
 	}
 }
 
 function OnTriggerEnter(col: Collider){
 	// Only react to the player entering the trigger zone and trigger only when the player is trying to exit the building (i.e. the fires have started)
-	if(col.gameObject.tag == "Player" && StateManager.CurrentGameState() == GameState.ExitBuilding) {
+	if(stateManager == null) {
+		stateManager = GameObject.Find("State Manager").GetComponent(StateManager);
+	}
+
+	if(scoreManager == null) {
+		scoreManager = GameObject.Find("Score Manager").GetComponent(ScoreManager);
+	}
+
+	if(col.gameObject.tag == "Player" && stateManager.CurrentGameState() == GameState.ExitBuilding) {
 		if(Extinguisher.pickedUpExtinguisher) {
-			StateManager.UpdateContextualState(ContextualState.CanUseExtinguisher, false);
+			stateManager.UpdateContextualState(ContextualState.CanUseExtinguisher, false);
 		}
 		else {
-			StateManager.UpdateContextualState(ContextualState.MustFindExtinguisher, false);
+			stateManager.UpdateContextualState(ContextualState.MustFindExtinguisher, false);
 		}
 	}
 }
 
 function OnTriggerExit(col: Collider){
-	StateManager.UpdateContextualState(ContextualState.None, false);
+	if(stateManager == null) {
+		stateManager = GameObject.Find("State Manager").GetComponent(StateManager);
+	}
+
+	stateManager.UpdateContextualState(ContextualState.None, false);
 }

@@ -23,10 +23,15 @@ function Update() {
     var speed = walkSpeed;
 
 	// Press C to crouch
-    if (Input.GetKey("c")) {
+    if (Input.GetKey(KeyCode.C)) {
         vScale = 0.5;
         speed = crouchSpeed; // Slow down when crouching
         isCrouching = true;
+    }
+    else {
+    	vScale = 1.0;
+    	speed = walkSpeed;
+    	isCrouching = false;
     }
 
 	// Set max speed

@@ -46,21 +46,24 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Bullshit Office Tile Kit\Scripts\SimpleDoorTrigger.js" />
      <Compile Include="Assets\FX Mega Pack\Scripts\ParticleSpawner.js" />
      <Compile Include="Assets\FX Mega Pack\Scripts\RandomRotate.js" />
      <Compile Include="Assets\FX Mega Pack\Scripts\RotateY.js" />
      <Compile Include="Assets\Nancy&apos;s Folder\Main Menu Assets\MainMenuBtns.js" />
      <Compile Include="Assets\Nancy&apos;s Folder\Main Menu Assets\Opening_lightflicker.js" />
      <Compile Include="Assets\Nancy&apos;s Folder\Nancy Scripts\Croucher.js" />
+     <Compile Include="Assets\Nancy&apos;s Folder\Nancy Scripts\EndGame.js" />
      <Compile Include="Assets\Nancy&apos;s Folder\Nancy Scripts\EscButton.js" />
      <Compile Include="Assets\Nancy&apos;s Folder\Nancy Scripts\Rag.js" />
      <Compile Include="Assets\Nancy&apos;s Folder\Nancy Scripts\SmokeArea.js" />
      <Compile Include="Assets\Nancy&apos;s Folder\Nancy Scripts\UsetheSink.js" />
+     <Compile Include="Assets\Office Tile Kit\Scripts\SimpleDoorTrigger.js" />
+     <Compile Include="Assets\Scripts\DeskPrompt.js" />
      <Compile Include="Assets\Scripts\Extinguisher.js" />
      <Compile Include="Assets\Scripts\ExtinguisherDetect.js" />
      <Compile Include="Assets\Scripts\FireStarter.js" />
      <Compile Include="Assets\Scripts\Objective.js" />
+     <Compile Include="Assets\Scripts\ScoreManager.js" />
      <Compile Include="Assets\Scripts\StateManager.js" />
      <None Include="Assets\Nancy&apos;s Folder\NewerItems\Toilet Paper\prop_toiletpaper\prop_toiletpaper\readme.txt" />
      <None Include="Assets\Nancy&apos;s Folder\NewerItems\Toilet &amp; Toilet Plunger (LD)\SA_LD_Toilet_Plunger_3DS\Copyright Notice.txt" />
