@@ -26,6 +26,12 @@ function OnTriggerEnter(col : Collider) {
 
 		stateManager.UpdateContextualState(ContextualState.CanUseSink, false);		// false = message does not disappear after a while
 	}
+	else {
+	if(stateManager.CurrentGameState() != GameState.ExitBuilding && col.gameObject.tag == "Player") {
+		hasEntered = true;
+		stateManager.UpdateContextualState(ContextualState.DontNeedSink, true);	
+		}
+	}
 }
 
 // Exit sink trigger area
@@ -48,10 +54,13 @@ function Update () {
 		// Wet the rag
 		if(scoreManager.pointsForSink == 0)
 		{
-			scoreManager.UpdateScore(30, "using a wet rag");
+			Rag.isWet = true;
+			scoreManager.UpdateScore(10, "wet the rag!");
 			scoreManager.pointsForSink = 1;
 		}
 
 		rag.Wet();
 	}
+
+	
 }

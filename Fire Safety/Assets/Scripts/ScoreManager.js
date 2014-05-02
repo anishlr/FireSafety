@@ -3,6 +3,9 @@ import System.Collections.Generic;
 
 public var pointsForSink : int;
 public var pointsForCrouching : int;
+public var pointsForRag : int;
+public var pointsForAlarm : int;
+
 public var scoreTextStyle : GUIStyle;
 public var disappearAfterTime : float = 3.0f;
 
@@ -16,6 +19,8 @@ private var scoreList : List.<String> = new List.<String>(); //list of strings p
 function Start () {
 	pointsForCrouching = 0;
 	pointsForSink = 0;
+	pointsForRag = 0;
+	pointsForAlarm = 0;
 }
 
 function UpdateScore(change : int, text : String) {

@@ -13,12 +13,15 @@ function OnTriggerEnter(col : Collider) {
 	if(col.gameObject.tag == "Player" && stateManager.CurrentGameState() == GameState.ExitBuilding) {
 		lightTarget.GetComponent(Light).enabled = true;
 		Time.timeScale = 0;
-
+	stateManager.UpdateContextualState(ContextualState.None, false);
+	
+	
 		if(scoreManager == null) {
 			scoreManager = GameObject.Find("Score Manager").GetComponent(ScoreManager);
 		}
-
-		scoreManager.UpdateScore(50, "exited safely!");
+		
+		scoreManager.UpdateScore(0, "");
 		stateManager.UpdateGameState(GameState.End);
+		scoreManager.UpdateScore(50, " safely!");
 	}
 }

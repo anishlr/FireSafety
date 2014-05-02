@@ -22,10 +22,14 @@ enum ContextualState {
 	CheckedDoorKnobAndDoorIsHot,
 	CheckedDoorKnobAndDoorIsCold,
 	MustUseRag,
+	NoDangerUsingDryRag,
 	UsingDryRag,
 	MustCrouch,
 	CanUseSink,
-	RagIsWet
+	RagIsWet,
+	DontNeedSink,
+	CanAlarm,
+	AlreadyAlarm
 };
 
 private var objective : Objective;
@@ -154,8 +158,20 @@ function UpdateContextualState (newState : ContextualState, disappearAfterTime :
 			
 		case ContextualState.CanUseSink:
 			objective.UpdateContextualObjective("Press 'F' to wet your rag.", disappearAfterTime);
-			break;
-			
+		break;
+		
+		case ContextualState.CanAlarm:
+			objective.UpdateContextualObjective("Press 'F' to pull the fire alarm.", disappearAfterTime);
+		break;
+		
+		case ContextualState.AlreadyAlarm:
+			objective.UpdateContextualObjective("Good job! You've already activated this!", disappearAfterTime);
+		break;
+		
+		case ContextualState.DontNeedSink:
+			objective.UpdateContextualObjective("Don't waste water! You don't need to use the sink just yet ...", disappearAfterTime);
+		break;
+		
 		case ContextualState.MustCrouch: 
 			objective.UpdateContextualObjective("This smoke is too dense. Press 'C' to crouch.", disappearAfterTime);
 		break;
@@ -164,8 +180,12 @@ function UpdateContextualState (newState : ContextualState, disappearAfterTime :
 			objective.UpdateContextualObjective("There is dense smoke around. It is hazardous to breathe the air. Press 'Z' to cover your mouth with the rag.", disappearAfterTime);
 		break;
 		
+		case ContextualState.NoDangerUsingDryRag:
+			objective.UpdateContextualObjective("Hm, a dry rag ... this may come in handy.", disappearAfterTime);
+			break;
+			
 		case ContextualState.UsingDryRag:
-			objective.UpdateContextualObjective("Your rag isn't as effective when dry! Maybe you could find a water source ...", disappearAfterTime);
+			objective.UpdateContextualObjective("This rag isn't as effective when dry! Maybe you could find a water source ...", disappearAfterTime);
 			break;
 		
 		case ContextualState.RagIsWet:

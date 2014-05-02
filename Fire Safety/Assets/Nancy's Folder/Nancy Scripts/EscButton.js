@@ -10,11 +10,23 @@ private var show: boolean = false;
 private var toggleTxt : boolean = false;
 private var savedGameState : GameState;
 private var stateManager : StateManager;
+
+
+//////// for controls
+
+public var controlBtnText : String;
+public var controlBtnStyle : GUIStyle;
+private var controlBtnTextRect : Rect;
+/////////////
  
 function Awake() {
-    var x = (Screen.width * 0.5) - (width * 0.5);
-    var y = (Screen.height * 0.5) - (height * 0.5);
-    rect = Rect(x, y, width, height);    
+    var xo = (Screen.width * 0.5) - (width * 0.5);
+    var yo = (Screen.height * 0.5) - (height * 0.5);
+    rect = Rect(xo, yo, width, height);    
+    
+    //// for controls
+    var textSize : Vector2 = controlBtnStyle.CalcSize(new GUIContent(controlBtnText));
+	controlBtnTextRect = new Rect(5, 5, textSize.x, textSize.y);
 }
  
 function Update() {
@@ -44,14 +56,15 @@ function Update() {
 }
  
 function OnGUI() {
+
+	
+	
     GUI.skin = skin;    
     if (show) {
+    GUI.Label(controlBtnTextRect, controlBtnText, controlBtnStyle);
     Time.timeScale = 0;
         GUILayout.BeginArea(rect);
-        if (GUILayout.Button("Press F to use sinks. Z to toggle rag. C to crouch.")) {
-         	show = false;
-         	Time.timeScale = 1;
-        }
+
         if (GUILayout.Button("Continue")) {
          	show = false;
          	Time.timeScale = 1;

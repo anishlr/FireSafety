@@ -4,11 +4,13 @@ private var hasEntered : boolean = false;
 private var stateManager : StateManager;
 private var scoreManager : ScoreManager;
 
+public var smokebreath : AudioClip;
+
 function OnTriggerEnter(col: Collider){
 	// Only react to the player entering the trigger zone
 	if(col.gameObject.tag == "Player") {
 		hasEntered = true;
-
+		audio.PlayOneShot(smokebreath);
 		if(stateManager == null) {
 			stateManager = GameObject.Find("State Manager").GetComponent(StateManager);
 		}
@@ -24,6 +26,7 @@ function OnTriggerEnter(col: Collider){
 function OnTriggerExit(col: Collider){
 	// Only react to the player exiting the trigger zone
 	if(col.gameObject.tag == "Player") {
+		audio.Stop();
 		hasEntered = false;
 		stateManager.UpdateContextualState(ContextualState.None, false);
 	}
@@ -31,6 +34,8 @@ function OnTriggerExit(col: Collider){
 
 function Update() {
 	if(hasEntered) {
+		
+		if (stateManager.CurrentGameState() != GameState.End){ // prevent from subtraction of points at end
 		if(Croucher.isCrouching) {
 			if(Rag.isWearing) {
 				if(Rag.isWet) {
@@ -48,8 +53,11 @@ function Update() {
 			}
 		}
 		else {
+		if (stateManager.CurrentGameState() == GameState.ExitBuilding) {
 			stateManager.UpdateContextualState(ContextualState.MustCrouch, false);
 			scoreManager.UpdateScore(-10, "not crouching through smoke");
+			}
+		}
 		}
 	}
 }
