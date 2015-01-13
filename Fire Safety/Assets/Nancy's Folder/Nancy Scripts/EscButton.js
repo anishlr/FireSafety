@@ -12,6 +12,7 @@ private var savedGameState : GameState;
 private var stateManager : StateManager;
 
 
+
 //////// for controls
 
 public var controlBtnText : String;
@@ -30,15 +31,17 @@ function Awake() {
 }
  
 function Update() {
-    if (Input.GetKeyDown(KeyCode.Escape)) {
+    if (Input.GetKeyDown(KeyCode.Escape)&&savedGameState!=GameState.End) {
         show = !show;
         if (show == false) {
         	Time.timeScale = 1;
         	// Hide the cursor
         	Screen.showCursor = false;
 
+			
 			// Restore the game state
 			stateManager.UpdateGameState(savedGameState);
+			
         }
         else {
 			// Show the cursor
@@ -66,18 +69,18 @@ function OnGUI() {
         GUILayout.BeginArea(rect);
 
         if (GUILayout.Button("Continue")) {
+        if(savedGameState!=GameState.End)
+        {
          	show = false;
          	Time.timeScale = 1;
         }
-        if (GUILayout.Button("Restart")) {
-        	show = false;
-         	Time.timeScale = 1;
-            Application.LoadLevel("Office");
+        stateManager.UpdateGameState(savedGameState);
         }
         if (GUILayout.Button("Quit")) {
         	show = false;
          	Time.timeScale = 1;
-            Application.LoadLevel("OpeningScene");
+         	stateManager.UpdateGameState(savedGameState);
+            Application.Quit();
         }
         GUILayout.EndArea();
     }

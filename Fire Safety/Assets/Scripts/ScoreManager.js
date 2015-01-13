@@ -9,8 +9,10 @@ public var pointsForAlarm : int;
 public var scoreTextStyle : GUIStyle;
 public var disappearAfterTime : float = 3.0f;
 
+private var height : int;
 private var score : int;
 private var scoreText : String;
+private var ScoreTextFinal : String;
 private var scoreTextRect : Rect;
 private var updatedScore : boolean;
 private var stateManager : StateManager;
@@ -51,25 +53,29 @@ function EraseScoreTextAfterTime() {
 }
 
 function OnGUI() {
+	height = 80;
+	
 	if(stateManager != null && stateManager.CurrentGameState() == GameState.End)
 	{
 		for(var i = 0; i < scoreList.Count; i++)
 		{
-			var height = 80;
-
 			if(scoreList[i] != "")
 			{
 				// Calculate the display rectangle to display the score history at the center
 				var textSize : Vector2 = scoreTextStyle.CalcSize(new GUIContent(scoreList[i]));
 				var rect = new Rect(Screen.width / 2 - textSize.x / 2, height, textSize.x, textSize.y);
 				height += textSize.y + 5;
-
+				
 				GUI.Label(rect, scoreList[i], scoreTextStyle);
 			}
-		
 		}
+		height += textSize.y + 5;
+		ScoreTextFinal= " Your Total Score is : ";
+		ScoreTextFinal= ScoreTextFinal + score.ToString();
+		textSize = scoreTextStyle.CalcSize(new GUIContent(ScoreTextFinal));
+		rect = new Rect(Screen.width / 2 - textSize.x / 2, height, textSize.x, textSize.y);
 		
-		GUI.Label(scoreTextRect, score.ToString(), scoreTextStyle);
+		GUI.Label(rect, ScoreTextFinal, scoreTextStyle);
 	}
 	else if(updatedScore) {
 		GUI.Label(scoreTextRect, scoreText, scoreTextStyle);

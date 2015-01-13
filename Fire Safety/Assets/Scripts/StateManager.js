@@ -34,8 +34,10 @@ enum ContextualState {
 
 private var objective : Objective;
 private var scoreManager : ScoreManager;
-private var currentGameState : GameState;
+public var currentGameState : GameState;
 private var currentContextualState : ContextualState;
+
+public var DidEnd : boolean=false;
 
 function Start() {
 	// Initial objective
@@ -82,6 +84,7 @@ function UpdateGameState (newState : GameState) {
 		case GameState.End:
 			objective.UpdateMainObjective("Phew, looks like we escaped the fire!");
 			objective.UpdateContextualObjective("", false);
+			DidEnd=true;
 			break;
 	}
 }

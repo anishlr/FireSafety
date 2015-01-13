@@ -8,7 +8,7 @@ private var hasEntered : boolean = false;
 private var playerObject : GameObject;
 private var stateManager : StateManager;
 private var scoreManager : ScoreManager;
-private var extinguisherInstance: Transform;
+public var extinguisherInstance: Transform;
 
 static var particleSystemInstance: GameObject;
 static var pickedUpExtinguisher : boolean = false;
